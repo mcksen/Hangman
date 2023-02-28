@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "sxxPyuHgWDS5NuodtLpr7dC7D3Yi70G6U0TlCw0DsKJVDHQ1MUI+2ru5f5pNOdCuH70n7Y8jvH946knSktkjAw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kseni\\Professional coding\\WORDLE\\WORDLE.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kseni\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
+    "C:\\Users\\kseni\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
+    "C:\\Users\\kseni\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
+    "C:\\Users\\kseni\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
+    "C:\\Users\\kseni\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
+    "C:\\Users\\kseni\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
