@@ -5,12 +5,47 @@ VideoMode poop = new VideoMode(1300,700);
 RenderWindow window = new RenderWindow(poop, "SFML.NET");
 
 Vector2f windowSize = new Vector2f (1300,700);
+ListCreator Dict = new ListCreator();
 // paddding adding
 
 Padding padding = new Padding();
 Vector2f startingPoint = new Vector2f (0f,0.5f);
 float padSize = 100f;
 Vector2f paddedPos = padding.GetPadding (windowSize, startingPoint, padSize);
+
+// Adding a list
+string [] allWords = File.ReadAllLines("C:\\Users\\kseni\\Documents\\HANGMAN.txt");
+List <string> dictionaryONE = Dict.RemoveWords (allWords,5);
+
+// Choosing a random word
+WordChooser Ran = new WordChooser();
+string targetWord = Ran.chooseTargetWord(dictionaryONE);
+Console.WriteLine (targetWord);
+
+//Showing the letters on the screen
+
+Font font = new Font("C:/Windows/Fonts/arial.ttf");
+
+
+// text.Color = new Color (Color.Black);
+// text.CharacterSize = 60;
+
+// float textWidth = text.GetLocalBounds().Width;
+// float textHeight = text.GetLocalBounds().Height;
+
+//Placing letters into each box
+ LetterGetter jon = new LetterGetter ();
+ string sp = jon.GetLetters (targetWord);
+
+
+Text letters = new Text (sp,font);
+letters.Color = new Color (Color.Black);
+letters.CharacterSize = 100;
+float letterHeight = letters.GetLocalBounds().Height;
+float letterWidth = letters.GetLocalBounds().Width;  
+letters.Origin = new Vector2f (0, letterHeight/2f);
+letters.Position = new Vector2f (windowSize.X/2f, windowSize.Y/2f);
+ 
 
 // Closing window
 window.Closed += HandleClose; //when close button is pressed just close the window
@@ -43,22 +78,13 @@ void HandleKeyPress(object? sender, KeyEventArgs e)
 
 SquareGenerator sh = new SquareGenerator();
 Vector2f boxSize = new Vector2f (300f,300f);
-Shape [] squares = sh.GetShape(boxSize,4);
+Shape [] squares = sh.GetShape(boxSize,5);
 
 for (int i = 0; i<squares.Length; i++)
 {
-    Shape square = squares [i];
-    
-    float squarseHeight = square.GetLocalBounds().Height;
-    float squareWidth = square.GetLocalBounds().Width;
-    square.Scale = new Vector2f(0.7f, 0.7f);
-    square.FillColor = new Color(Color.White);
-    square.OutlineColor = new Color (255,0,0);
-    square.Origin = new Vector2f(0,squarseHeight/2f);
+    Shape square = squares [i];  
     Vector2f space = new Vector2f (i*220f, 0);
-    
     square.Position = paddedPos +space;
-    
 }
 
 // Sprite pic = new Sprite (texture);
@@ -68,13 +94,6 @@ for (int i = 0; i<squares.Length; i++)
 // pic.Position = new Vector2f (window.Size.X, window.Size.Y/2f);
 // pic.Scale = new Vector2f(0.1f,0.1f);
 
-// Font font = new Font("C:/Windows/Fonts/arial.ttf");
-// Text text = new Text("KI!", font);
-// Text pro = new Text ("ksen is pro", font);
-// text.CharacterSize = 60;
-// pro.CharacterSize = 37;
-// float textWidth = text.GetLocalBounds().Width;
-// float textHeight = text.GetLocalBounds().Height;
 
 // float proWidth = pro.GetLocalBounds().Width;
 // float proHeight = pro.GetLocalBounds().Height;
@@ -111,7 +130,8 @@ while (window.IsOpen)
     {
     window.Draw(squares[b]);
     };
-    // window.Draw(text);
+    window.Draw(letter);
+   
     // window.Draw(pro);
     window.Display();
     // window.Draw (pic);
