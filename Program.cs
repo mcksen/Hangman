@@ -35,17 +35,23 @@ Font font = new Font("C:/Windows/Fonts/arial.ttf");
 
 //Placing letters into each box
  LetterGetter jon = new LetterGetter ();
- string sp = jon.GetLetters (targetWord);
+ List <string> sp = jon.GetLetters (targetWord);
+ List <Text> boom = new List<Text>();
+for (int i=0; i< sp.Count; i++)
+{
+    Text letters = new Text (sp[i], font);
+    boom.Add (letters);
 
+    letters.Color = new Color (Color.Black);
+    letters.CharacterSize = 100;
+    float letterHeight = letters.GetLocalBounds().Height;
+    float letterWidth = letters.GetLocalBounds().Width;  
+    letters.Origin = new Vector2f (0, letterHeight/2f);
+    
+    Vector2f space = new Vector2f (i*220f, 0);
+    letters.Position = paddedPos +space;
+}
 
-Text letters = new Text (sp,font);
-letters.Color = new Color (Color.Black);
-letters.CharacterSize = 100;
-float letterHeight = letters.GetLocalBounds().Height;
-float letterWidth = letters.GetLocalBounds().Width;  
-letters.Origin = new Vector2f (0, letterHeight/2f);
-letters.Position = new Vector2f (windowSize.X/2f, windowSize.Y/2f);
- 
 
 // Closing window
 window.Closed += HandleClose; //when close button is pressed just close the window
@@ -130,8 +136,10 @@ while (window.IsOpen)
     {
     window.Draw(squares[b]);
     };
-    window.Draw(letter);
-   
+    for (int b =0; b<boom.Count; b++)
+    {
+        window.Draw(boom[b]);
+    }
     // window.Draw(pro);
     window.Display();
     // window.Draw (pic);

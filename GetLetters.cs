@@ -1,13 +1,13 @@
 public class LetterGetter
 {
-    string sp ="";
-    public string GetLetters (string targetWord)
+    public List <string> GetLetters (string targetWord)
     {
+        List <string> charArray = new List<string>();
         for (int i = 0; i<targetWord.Length; i++)
         {
-            char letter = targetWord [i];
-            sp += Convert.ToString(letter);
+            string letter = Convert.ToString(targetWord [i]);
+            charArray.Add(letter);
         }
-        return sp;
+        return charArray;
     }
 }
