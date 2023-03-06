@@ -37,19 +37,22 @@ Font font = new Font("C:/Windows/Fonts/arial.ttf");
  LetterGetter jon = new LetterGetter ();
  List <string> sp = jon.GetLetters (targetWord);
  List <Text> boom = new List<Text>();
+ Vector2f singleSpace = new Vector2f (100,-130); 
+ 
 for (int i=0; i< sp.Count; i++)
 {
     Text letters = new Text (sp[i], font);
     boom.Add (letters);
 
     letters.Color = new Color (Color.Black);
-    letters.CharacterSize = 100;
+    letters.CharacterSize = 190;
     float letterHeight = letters.GetLocalBounds().Height;
     float letterWidth = letters.GetLocalBounds().Width;  
-    letters.Origin = new Vector2f (0, letterHeight/2f);
+    letters.Origin = new Vector2f (letterWidth/2f, 0);
     
     Vector2f space = new Vector2f (i*220f, 0);
-    letters.Position = paddedPos +space;
+    
+    letters.Position =  singleSpace+ paddedPos + space;
 }
 
 
