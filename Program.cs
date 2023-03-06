@@ -1,26 +1,28 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-VideoMode poop = new VideoMode(1300,700);
+VideoMode poop = new VideoMode(1300, 700);
 RenderWindow window = new RenderWindow(poop, "SFML.NET");
+float boxSize = 210f;
 
-Vector2f windowSize = new Vector2f (1300,700);
+
+Vector2f windowSize = new Vector2f(1300, 700);
 ListCreator Dict = new ListCreator();
 // paddding adding
 
 Padding padding = new Padding();
-Vector2f startingPoint = new Vector2f (0f,0.5f);
+Vector2f startingPoint = new Vector2f(0f, 0.5f);
 float padSize = 100f;
-Vector2f paddedPos = padding.GetPadding (windowSize, startingPoint, padSize);
+Vector2f paddedPos = padding.GetPadding(windowSize, startingPoint, padSize);
 
 // Adding a list
-string [] allWords = File.ReadAllLines("C:\\Users\\kseni\\Documents\\HANGMAN.txt");
-List <string> dictionaryONE = Dict.RemoveWords (allWords,5);
+string[] allWords = File.ReadAllLines("C:\\Users\\kseni\\Documents\\HANGMAN.txt");
+List<string> dictionaryONE = Dict.RemoveWords(allWords, 5);
 
 // Choosing a random word
 WordChooser Ran = new WordChooser();
 string targetWord = Ran.chooseTargetWord(dictionaryONE);
-Console.WriteLine (targetWord);
+Console.WriteLine(targetWord);
 
 //Showing the letters on the screen
 
@@ -34,44 +36,36 @@ Font font = new Font("C:/Windows/Fonts/arial.ttf");
 // float textHeight = text.GetLocalBounds().Height;
 
 //Placing letters into each box
- LetterGetter jon = new LetterGetter ();
- List <string> sp = jon.GetLetters (targetWord);
- List <Text> boom = new List<Text>();
- Vector2f singleSpace = new Vector2f (100,-130); 
- 
-for (int i=0; i< sp.Count; i++)
-{
-    Text letters = new Text (sp[i], font);
-    boom.Add (letters);
+LetterListCreator jon = new LetterListCreator();
+List<string> sp = jon.CreateLetterList(targetWord);
+List<Text> boom = new List<Text>();
+Vector2f singleSpace = new Vector2f(boxSize / 2f, -boxSize / 2f);
 
-    letters.Color = new Color (Color.Black);
-    letters.CharacterSize = 190;
-    float letterHeight = letters.GetLocalBounds().Height;
-    float letterWidth = letters.GetLocalBounds().Width;  
-    letters.Origin = new Vector2f (letterWidth/2f, 0);
-    
-    Vector2f space = new Vector2f (i*220f, 0);
-    
-    letters.Position =  singleSpace+ paddedPos + space;
+for (int i = 0; i < sp.Count; i++)
+{
+	Text letters = new Text(sp[i], font);
+	boom.Add(letters);
+
+	letters.Color = new Color(Color.Black);
+	letters.CharacterSize = 190;
+	float letterHeight = letters.GetLocalBounds().Height;
+	float letterWidth = letters.GetLocalBounds().Width;
+	letters.Origin = new Vector2f(letterWidth / 2f, 0);
+
+	Vector2f space = new Vector2f(i * 220f, 0);
+
+	letters.Position = singleSpace + paddedPos + space;
 }
 
 
 // Closing window
-window.Closed += HandleClose; //when close button is pressed just close the window
+WindowCloser close = new WindowCloser(window);
+UserInputAllkeys pressKey = new UserInputAllkeys(window);
+pressKey.onLetterPressed += HandleLetterPress;
 
-void HandleClose(object? sender, EventArgs e)
+void HandleLetterPress(char letter)
 {
-    window.Close();
-}
-
-window.KeyPressed += HandleKeyPress;
-
-void HandleKeyPress(object? sender, KeyEventArgs e)
-{
-    if (e.Code == Keyboard.Key.Escape)
-    {
-        window.Close();
-    }  
+	Console.WriteLine(letter);
 }
 
 
@@ -84,17 +78,17 @@ void HandleKeyPress(object? sender, KeyEventArgs e)
 
 // square.Texture = new Texture("C:\\Users\\kseni\\Professional coding\\SFML\\GUI PRO Kit - Casual Game\\GUI PRO Kit - Casual Game\\Preview\\_Common_Icons.png");
 
-
 SquareGenerator sh = new SquareGenerator();
-Vector2f boxSize = new Vector2f (300f,300f);
-Shape [] squares = sh.GetShape(boxSize,5);
+Vector2f size = new Vector2f(boxSize, boxSize);
+Shape[] squares = sh.GetShape(size, 5);
 
-for (int i = 0; i<squares.Length; i++)
+for (int i = 0; i < squares.Length; i++)
 {
-    Shape square = squares [i];  
-    Vector2f space = new Vector2f (i*220f, 0);
-    square.Position = paddedPos +space;
+	Shape square = squares[i];
+	Vector2f space = new Vector2f(i * 220f, 0);
+	square.Position = paddedPos + space;
 }
+
 
 // Sprite pic = new Sprite (texture);
 // float picWidth = pic.GetLocalBounds().Width;
@@ -130,20 +124,20 @@ float angleSpeed = 90f;
 
 while (window.IsOpen)
 {
-    delta = clock.Restart().AsSeconds();
-    angle += angleSpeed * delta;
-    window.DispatchEvents();
-    window.Clear(Color.Green);
-    // text.Rotation = angle;
-    for (int b =0; b<squares.Length; b++)
-    {
-    window.Draw(squares[b]);
-    };
-    for (int b =0; b<boom.Count; b++)
-    {
-        window.Draw(boom[b]);
-    }
-    // window.Draw(pro);
-    window.Display();
-    // window.Draw (pic);
+	delta = clock.Restart().AsSeconds();
+	angle += angleSpeed * delta;
+	window.DispatchEvents();
+	window.Clear(Color.Green);
+	// text.Rotation = angle;
+	for (int b = 0; b < squares.Length; b++)
+	{
+		window.Draw(squares[b]);
+	};
+	for (int b = 0; b < boom.Count; b++)
+	{
+		window.Draw(boom[b]);
+	}
+	// window.Draw(pro);
+	window.Display();
+	// window.Draw (pic);
 }

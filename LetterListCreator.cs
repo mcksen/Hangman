@@ -1,6 +1,6 @@
-public class LetterGetter
+public class LetterListCreator
 {
-    public List <string> GetLetters (string targetWord)
+    public List <string> CreateLetterList (string targetWord)
     {
         List <string> charArray = new List<string>();
         for (int i = 0; i<targetWord.Length; i++)
