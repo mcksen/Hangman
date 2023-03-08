@@ -35,40 +35,47 @@ Font font = new Font("C:/Windows/Fonts/arial.ttf");
 // float textWidth = text.GetLocalBounds().Width;
 // float textHeight = text.GetLocalBounds().Height;
 
-//Placing letters into each box
-LetterListCreator jon = new LetterListCreator();
-List<string> sp = jon.CreateLetterList(targetWord);
-List<Text> boom = new List<Text>();
-Vector2f singleSpace = new Vector2f(boxSize / 2f, -boxSize / 2f);
-
-for (int i = 0; i < sp.Count; i++)
-{
-	Text letters = new Text(sp[i], font);
-	boom.Add(letters);
-
-	letters.Color = new Color(Color.Black);
-	letters.CharacterSize = 190;
-	float letterHeight = letters.GetLocalBounds().Height;
-	float letterWidth = letters.GetLocalBounds().Width;
-	letters.Origin = new Vector2f(letterWidth / 2f, 0);
-
-	Vector2f space = new Vector2f(i * 220f, 0);
-
-	letters.Position = singleSpace + paddedPos + space;
-}
 
 
 // Closing window
 WindowCloser close = new WindowCloser(window);
 UserInputAllkeys pressKey = new UserInputAllkeys(window);
-pressKey.onLetterPressed += HandleLetterPress;
 
+//Checking user's input
+
+LetterCheck isMatch = new LetterCheck();
+pressKey.onLetterPressed += HandleLetterPress;
+bool pi;
 void HandleLetterPress(char letter)
 {
+	pi = isMatch.checkLetter(targetWord, letter);
 	Console.WriteLine(letter);
 }
 
+//Placing letters into each box
+LetterListCreator jon = new LetterListCreator();
+List<string> sp = jon.CreateLetterList(targetWord);
 
+//Adding letters of the targetWord to a new Text list for further Drawing
+TextListAdder textList = new TextListAdder();
+List<Text> targetCHARlist = textList.AddTexttoList(sp, font);
+Vector2f singleSpace = new Vector2f(boxSize / 2f, -boxSize / 2f);
+
+for (int i = 0; i < targetCHARlist.Count; i++)
+{
+
+	Vector2f space = new Vector2f(i * 220f, 0);
+	targetCHARlist[i].Position = singleSpace + paddedPos + space;
+	if (pi)
+	{
+		targetCHARlist[i].Color = new Color(Color.Black);
+	}
+
+	else
+	{
+		targetCHARlist[i].Color = new Color(Color.Transparent);
+	}
+}
 // string path = "C:\\temp\\Equipment_Popup_Detail2.png";
 // Texture texture = new Texture (path);
 // texture.Repeated = true;
@@ -122,6 +129,8 @@ float angle = 0f;
 
 float angleSpeed = 90f;
 
+
+
 while (window.IsOpen)
 {
 	delta = clock.Restart().AsSeconds();
@@ -133,11 +142,12 @@ while (window.IsOpen)
 	{
 		window.Draw(squares[b]);
 	};
-	for (int b = 0; b < boom.Count; b++)
+	for (int b = 0; b < targetCHARlist.Count; b++)
 	{
-		window.Draw(boom[b]);
+		window.Draw(targetCHARlist[b]);
 	}
-	// window.Draw(pro);
+
+
 	window.Display();
 	// window.Draw (pic);
 }

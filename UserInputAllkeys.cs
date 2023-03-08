@@ -16,8 +16,13 @@ public class UserInputAllkeys
 		if ((int)e.Code <= 25)
 		{
 			string let = Convert.ToString(e.Code);
+			let = let.ToLower();
 			char letter = Convert.ToChar(let);
-			onLetterPressed(letter);
+
+			if (onLetterPressed != null)
+			{
+				onLetterPressed(letter);
+			}
 		}
 	}
 
