@@ -16,18 +16,19 @@ public class GameUI
 	private Vector2f size;
 	private Shape[] squares;
 	private GameData data;
+	Shape hangmanBOX;
 	public GameUI(GameData wind)
 	{
 		windowSize = new Vector2f(1300, 700);
 
 		padding = new Padding();
 		padSize = 100f;
-		startingPoint = new Vector2f(0, 0.5f);
+		startingPoint = new Vector2f(0, 0.80f);
 		paddedPos = padding.GetPadding(windowSize, startingPoint, padSize);
 		font = new Font("C:/Windows/Fonts/arial.ttf");
 		content = new ContentGenerator();
-
 		data = wind;
+
 	}
 
 
@@ -37,17 +38,14 @@ public class GameUI
 
 	{
 		data.window.Clear(Color.Green);
+		DrawBox();
 		DrawCharArray();
-
-
+		DrawHangMan();
 
 		data.window.Display();
-		// window.Draw (pic);
+
 
 	}
-	// /Adding letters of the targetWord to a new Text list for further Drawing
-	// textList = new TextListAdder();
-	// targetCHARlist = textList.AddTexttoList(sp, font);
 
 
 	private void DrawCharArray()
@@ -76,25 +74,36 @@ public class GameUI
 		}
 	}
 
-	// for (int i = 0; i<targetCHARlist.Count; i++)
-	// {
+	// MAKING BOX FOR THE HANGMAN
+	private void DrawBox()
+	{
+		hangmanBOX = content.MakeHangmanBox(data.window);
+		data.window.Draw(hangmanBOX);
+	}
+	public List<Sprite> MakeSpriteList()
+	{
+		Sprite failONE = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailONE.png"));
+		Sprite failTWO = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailTWO.png"));
+		Sprite failTHREE = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailTHREE.png"));
+		Sprite failFOUR = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailFOUR.png"));
+		Sprite failFIVE = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailFIVE.png"));
+		Sprite failSIX = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailSIX.png"));
+		Sprite failSEVEN = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailSEVEN.png"));
+		Sprite failEIGHT = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailEIGHT.png"));
+		Sprite failNINE = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailNINE.png"));
+		Sprite failTEN = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailTEN.png"));
+		List<Sprite> sprites = new List<Sprite> { failONE, failTWO, failTHREE, failFOUR, failFIVE, failSIX, failSEVEN, failEIGHT, failNINE, failTEN };
+		return sprites;
+	}
+	private void DrawHangMan()
+	{
 
-	// 	Vector2f space = new Vector2f(i * 220f, 0);
-	// 	targetCHARlist[i].Position = singleSpace + paddedPos + space;
-	// 	if (pi)
-	// 	{
-	// 		targetCHARlist[i].Color = new Color(Color.Black);
-	// }
-
-	// 	else
-	// {
-	// 	targetCHARlist[i].Color = new Color(Color.Transparent);
-	// }
-	// }
-
-
-	// delta = clock.Restart().AsSeconds();
-	// angle += angleSpeed * delta;
+		List<Sprite> sprites = MakeSpriteList();
+		for (int i = 0; i < sprites.Count; i++)
+		{
+			data.window.Draw(sprites[i]);
+		}
+	}
 
 
 

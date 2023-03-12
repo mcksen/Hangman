@@ -13,7 +13,7 @@ public class Game
 		// Adding a new array of strings, removing all words shoerter than 5 characters and converting to list of strings
 		ListCreator Dict = new ListCreator();
 		string[] allWords = File.ReadAllLines("C:\\Users\\kseni\\Documents\\HANGMAN.txt");
-		List<string> dictionaryONE = Dict.RemoveWords(allWords, 6);
+		List<string> dictionaryONE = Dict.RemoveWords(allWords, 5);
 		// Choosing a random word
 		WordChooser Ran = new WordChooser();
 		targetWord = Ran.chooseTargetWord(dictionaryONE);
