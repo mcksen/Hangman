@@ -24,6 +24,7 @@ public class Game
 		UserInputAllkeys pressKey = new UserInputAllkeys(window);
 		pressKey.onLetterPressed += HandleLetterPress;
 		isMatch = new LetterCheck();
+		isMatch.onWrongLetterPressed += HandleWrongLetter;
 		data = new GameData();
 		data.window = wind;
 
@@ -40,6 +41,12 @@ public class Game
 		data.ifMatch = new string(blank);
 
 	}
+
+	private void HandleWrongLetter(char letter)
+	{
+		data.wrongGuesses.Add(letter.ToString());
+	}
+
 	//---------------------------------------------
 	// 				HAPPENS EVERY FRAME
 	//---------------------------------------------

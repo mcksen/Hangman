@@ -41,7 +41,7 @@ public class GameUI
 		DrawBox();
 		DrawCharArray();
 		DrawHangMan();
-
+		DrawWrongGuesses();
 		data.window.Display();
 
 
@@ -106,5 +106,35 @@ public class GameUI
 	}
 
 
+	private void DrawWrongGuesses()
+	{
+		Text[] noMatch = CreateListToDraw(data.wrongGuesses);
+		Vector2f startPos = new Vector2f(windowSize.X * 0.1f, windowSize.Y * 0.4f);
+		float space = 0;
+		for (int i = 0; i < noMatch.Length; i++)
+		{
+			space += 50f;
+			noMatch[i].Position = startPos + new Vector2f(space, 0);
+			data.window.Draw(noMatch[i]);
+		}
+	}
 
+
+	private Text[] CreateListToDraw(List<string> wrong)
+	{
+
+		string word = " ";
+
+		Text list;
+		List<Text> notMatch = new List<Text>();
+		for (int i = 0; i < wrong.Count; i++)
+		{
+			word = wrong[i];
+			list = content.MakeLetters(word, font);
+			list.CharacterSize = 70;
+			notMatch.Add(list);
+
+		}
+		return notMatch.ToArray();
+	}
 }
