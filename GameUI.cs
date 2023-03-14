@@ -18,6 +18,7 @@ public class GameUI
 	private GameData data;
 	Shape hangmanBOX;
 	Text wrongTitle;
+	List<Sprite> sprites;
 
 	public GameUI(GameData wind)
 	{
@@ -29,6 +30,8 @@ public class GameUI
 		font = new Font("C:/Windows/Fonts/arial.ttf");
 		content = new ContentGenerator();
 		data = wind;
+		hangmanBOX = content.MakeHangmanBox(data.window);
+		sprites = MakeSpriteList();
 
 	}
 
@@ -79,7 +82,6 @@ public class GameUI
 	// MAKING BOX FOR THE HANGMAN
 	private void DrawBox()
 	{
-		hangmanBOX = content.MakeHangmanBox(data.window);
 		data.window.Draw(hangmanBOX);
 	}
 	public List<Sprite> MakeSpriteList()
@@ -100,8 +102,8 @@ public class GameUI
 	private void DrawHangMan()
 	{
 
-		List<Sprite> sprites = MakeSpriteList();
-		for (int i = 0; i < sprites.Count; i++)
+
+		for (int i = 0; i < data.wrongGuesses.Count; i++)
 		{
 			data.window.Draw(sprites[i]);
 		}
@@ -112,6 +114,7 @@ public class GameUI
 	{
 
 		Text[] noMatch = CreateListToDraw(data.wrongGuesses);
+
 		// Vector2f startPos = new Vector2f(windowSize.X * 0.1f, windowSize.Y * 0.4f);
 		float space = -20f;
 		for (int i = 0; i < noMatch.Length; i++)
@@ -120,6 +123,7 @@ public class GameUI
 			space += 40f;
 			noMatch[i].Position = new Vector2f(wrongTitle.GetGlobalBounds().Width * 1.4f, wrongTitle.Position.Y - 23) + new Vector2f(space, 0);
 			data.window.Draw(noMatch[i]);
+
 		}
 	}
 
