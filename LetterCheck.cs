@@ -1,8 +1,12 @@
 
+using SFML.Graphics;
+
 public class LetterCheck
 {
+
 	public delegate void WrongLetterEvent(char letter);
 	public event WrongLetterEvent onWrongLetterPressed;
+
 	// UseWrongGuess wrong = new UseWrongGuess();
 	public char[] checkLetter(char[] blankWord, string chosenWord, char userGuess)
 	{
@@ -20,6 +24,7 @@ public class LetterCheck
 		if (!anyMatch && onWrongLetterPressed != null)
 		{
 			onWrongLetterPressed(userGuess);
+
 		}
 
 

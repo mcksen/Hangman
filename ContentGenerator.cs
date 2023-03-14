@@ -21,11 +21,11 @@ public class ContentGenerator
 
 	}
 
-	public Text MakeLetters(string letter, Font font)
+	public Text MakeLetters(string letter, Font font, uint characterSize = 190)
 	{
 		Text letters = new Text(letter, font);
 		letters.Color = new Color(Color.Black);
-		letters.CharacterSize = 190;
+		letters.CharacterSize = characterSize;
 		float letterHeight = letters.GetLocalBounds().Height;
 		float letterWidth = letters.GetLocalBounds().Width;
 		letters.Origin = new Vector2f(letterWidth / 2f, 0);

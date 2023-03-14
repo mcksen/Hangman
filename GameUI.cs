@@ -113,12 +113,12 @@ public class GameUI
 
 		Text[] noMatch = CreateListToDraw(data.wrongGuesses);
 		// Vector2f startPos = new Vector2f(windowSize.X * 0.1f, windowSize.Y * 0.4f);
-		float space = 0;
+		float space = -20f;
 		for (int i = 0; i < noMatch.Length; i++)
 		{
 			// wrongTitle.GetGlobalBounds().Height is 29f
 			space += 40f;
-			noMatch[i].Position = new Vector2f(wrongTitle.GetGlobalBounds().Width * 1.5f, wrongTitle.Position.Y - 23) + new Vector2f(space - 20f, 0);
+			noMatch[i].Position = new Vector2f(wrongTitle.GetGlobalBounds().Width * 1.4f, wrongTitle.Position.Y - 23) + new Vector2f(space, 0);
 			data.window.Draw(noMatch[i]);
 		}
 	}
@@ -134,8 +134,7 @@ public class GameUI
 		for (int i = 0; i < wrong.Count; i++)
 		{
 			word = wrong[i];
-			list = content.MakeLetters(word, font);
-			list.CharacterSize = 50;
+			list = content.MakeLetters(word, font, 50);
 			notMatch.Add(list);
 
 		}
@@ -144,8 +143,7 @@ public class GameUI
 
 	private void DrawWrongGuesseTitle()
 	{
-		wrongTitle = content.MakeLetters("NO MATCH WITH:", font);
-		wrongTitle.CharacterSize = 40;
+		wrongTitle = content.MakeLetters("NO MATCH WITH:", font, 40);
 		float width = wrongTitle.GetGlobalBounds().Width;
 		float height = wrongTitle.GetGlobalBounds().Height;
 		wrongTitle.Origin = new Vector2f(0, height / 2f);
