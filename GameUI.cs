@@ -3,7 +3,7 @@ using SFML.System;
 
 public class GameUI
 {
-	private Vector2f windowSize;
+
 	private float boxSize;
 	private Padding padding;
 	private Vector2f startingPoint;
@@ -15,23 +15,25 @@ public class GameUI
 	private ContentGenerator content;
 	private Vector2f size;
 	private Shape[] squares;
-	private GameData data;
+
 	Shape hangmanBOX;
 	Text wrongTitle;
 	List<Sprite> sprites;
+	Color back;
 
-	public GameUI(GameData wind)
+	public GameUI()
 	{
-		windowSize = new Vector2f(1300, 700);
+
 		padding = new Padding();
 		padSize = 100f;
 		startingPoint = new Vector2f(0, 0.80f);
-		paddedPos = padding.GetPadding(windowSize, startingPoint, padSize);
+		paddedPos = padding.GetPadding(GameData.windowSize, startingPoint, padSize);
 		font = new Font("C:/Windows/Fonts/arial.ttf");
 		content = new ContentGenerator();
-		data = wind;
-		hangmanBOX = content.MakeHangmanBox(data.window);
+
+		hangmanBOX = content.MakeHangmanBox(GameData.window);
 		sprites = MakeSpriteList();
+		back = new Color(159, 226, 219);
 
 	}
 
@@ -41,13 +43,13 @@ public class GameUI
 	public void ToDraw()
 
 	{
-		data.window.Clear(Color.Green);
+		GameData.window.Clear(back);
 		DrawBox();
 		DrawCharArray();
 		DrawWrongGuesseTitle();
 		DrawHangMan();
 		DrawWrongGuesses();
-		data.window.Display();
+		GameData.window.Display();
 
 
 	}
@@ -55,9 +57,9 @@ public class GameUI
 
 	private void DrawCharArray()
 	{
-		if (data != null && data.ifMatch != null)
+		if (GameData.ifMatch != null)
 		{
-			char[] array = data.ifMatch.ToCharArray();
+			char[] array = GameData.ifMatch.ToCharArray();
 			ContentGenerator content = new ContentGenerator();
 			Vector2f initialpos = paddedPos;
 			float space = 0;
@@ -73,8 +75,8 @@ public class GameUI
 				float width = square.GetGlobalBounds().Width;
 				letter.Position = new Vector2f(square.Position.X + width / 2f, (square.Position.Y - height / 2f) - 20f);
 
-				data.window.Draw(square);
-				data.window.Draw(letter);
+				GameData.window.Draw(square);
+				GameData.window.Draw(letter);
 			}
 		}
 	}
@@ -82,7 +84,7 @@ public class GameUI
 	// MAKING BOX FOR THE HANGMAN
 	private void DrawBox()
 	{
-		data.window.Draw(hangmanBOX);
+		GameData.window.Draw(hangmanBOX);
 	}
 	public List<Sprite> MakeSpriteList()
 	{
@@ -103,9 +105,9 @@ public class GameUI
 	{
 
 
-		for (int i = 0; i < data.wrongGuesses.Count; i++)
+		for (int i = 0; i < GameData.wrongGuesses.Count; i++)
 		{
-			data.window.Draw(sprites[i]);
+			GameData.window.Draw(sprites[i]);
 		}
 	}
 
@@ -113,7 +115,7 @@ public class GameUI
 	private void DrawWrongGuesses()
 	{
 
-		Text[] noMatch = CreateListToDraw(data.wrongGuesses);
+		Text[] noMatch = CreateListToDraw(GameData.wrongGuesses);
 
 		// Vector2f startPos = new Vector2f(windowSize.X * 0.1f, windowSize.Y * 0.4f);
 		float space = -20f;
@@ -122,7 +124,7 @@ public class GameUI
 			// wrongTitle.GetGlobalBounds().Height is 29f
 			space += 40f;
 			noMatch[i].Position = new Vector2f(wrongTitle.GetGlobalBounds().Width * 1.4f, wrongTitle.Position.Y - 23) + new Vector2f(space, 0);
-			data.window.Draw(noMatch[i]);
+			GameData.window.Draw(noMatch[i]);
 
 		}
 	}
@@ -130,9 +132,7 @@ public class GameUI
 
 	private Text[] CreateListToDraw(List<string> wrong)
 	{
-
 		string word = " ";
-
 		Text list;
 		List<Text> notMatch = new List<Text>();
 		for (int i = 0; i < wrong.Count; i++)
@@ -140,7 +140,6 @@ public class GameUI
 			word = wrong[i];
 			list = content.MakeLetters(word, font, 50);
 			notMatch.Add(list);
-
 		}
 		return notMatch.ToArray();
 	}
@@ -151,7 +150,8 @@ public class GameUI
 		float width = wrongTitle.GetGlobalBounds().Width;
 		float height = wrongTitle.GetGlobalBounds().Height;
 		wrongTitle.Origin = new Vector2f(0, height / 2f);
-		wrongTitle.Position = new Vector2f(windowSize.X * 0.09f, windowSize.Y * 0.5f);
-		data.window.Draw(wrongTitle);
+		wrongTitle.Position = new Vector2f(GameData.windowSize.X * 0.09f, GameData.windowSize.Y * 0.5f);
+		GameData.window.Draw(wrongTitle);
 	}
 }
+

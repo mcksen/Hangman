@@ -5,12 +5,15 @@ public class UserInputAllkeys
 {
 	public delegate void LetterEvent(char letter);
 	public event LetterEvent onLetterPressed;
+	public delegate void AltEvent();
+	public event AltEvent onSPACEpressed;
 	RenderWindow winDOW;
 	public UserInputAllkeys(RenderWindow window)
 	{
 		winDOW = window;
 		window.KeyPressed += HandleKeyPress;
 	}
+
 	public void HandleKeyPress(object? sender, KeyEventArgs e)
 	{
 		if ((int)e.Code <= 25)
@@ -23,7 +26,12 @@ public class UserInputAllkeys
 			{
 				onLetterPressed(letter);
 			}
+
+		}
+
+		else if (e.Code == Keyboard.Key.Space && onSPACEpressed != null)
+		{
+			onSPACEpressed();
 		}
 	}
-
 }

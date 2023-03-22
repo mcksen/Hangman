@@ -3,11 +3,15 @@ using SFML.Window;
 public class Game
 {
 	private GameUI ui;
-	private GameData data;
+	private MenuUi menu;
+
 	private string targetWord;
 	private LetterCheck isMatch;
 	private RenderWindow window;
 	private char[] blank;
+	bool gameON = false;
+	UserInputAllkeys pressKey;
+
 	public Game(RenderWindow wind)
 	{
 		// Adding a new array of strings, removing all words shoerter than 5 characters and converting to list of strings
@@ -21,14 +25,15 @@ public class Game
 		window = wind;
 		// Closing window
 		WindowCloser close = new WindowCloser(window);
-		UserInputAllkeys pressKey = new UserInputAllkeys(window);
+		pressKey = new UserInputAllkeys(window);
 		pressKey.onLetterPressed += HandleLetterPress;
+		pressKey.onSPACEpressed += HandleSPACEpressed;
 		isMatch = new LetterCheck();
 		isMatch.onWrongLetterPressed += HandleWrongLetter;
-		data = new GameData();
-		data.window = wind;
 
-		ui = new GameUI(data);
+		GameData.window = wind;
+		menu = new MenuUi();
+		ui = new GameUI();
 		char blankWord = ' ';
 		List<char> pro = new List<char>();
 		for (int i = 0; i < targetWord.Length; i++)
@@ -38,15 +43,29 @@ public class Game
 		}
 		blank = pro.ToArray();
 		Console.WriteLine(blank.Length);
-		data.ifMatch = new string(blank);
+		GameData.ifMatch = new string(blank);
 
 	}
-
+	private void CheckifWon()
+	{
+		if (GameData.ifMatch == targetWord)
+		{
+			GameData.isWin = true;
+			gameON = false;
+		}
+	}
 	private void HandleWrongLetter(char letter)
 	{
-		data.wrongGuesses.Add(letter.ToString());
+		GameData.wrongGuesses.Add(letter.ToString());
+		if (GameData.wrongGuesses.Count == 10)
+		{
+			gameON = false;
+		}
 	}
-
+	public void HandleSPACEpressed()
+	{
+		gameON = true;
+	}
 	//---------------------------------------------
 	// 				HAPPENS EVERY FRAME
 	//---------------------------------------------
@@ -54,12 +73,22 @@ public class Game
 	private void HandleLetterPress(char letter)
 	{
 		char[] match = isMatch.checkLetter(blank, targetWord, letter);
-		data.ifMatch = new string(match);
+		GameData.ifMatch = new string(match);
+		CheckifWon();
 
 	}
+
 	public void Play()
 	{
 		window.DispatchEvents();
-		ui.ToDraw();
+
+		if (gameON)
+		{
+			ui.ToDraw();
+		}
+		else
+		{
+			menu.Drawable();
+		}
 	}
 }

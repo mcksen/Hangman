@@ -6,9 +6,12 @@ RenderWindow window = new RenderWindow(poop, "SFML.NET");
 Game mygame = new Game(window);
 
 
+
 while (window.IsOpen)
 {
 	mygame.Play();
+	ScoreManager.TrySetHighScore();
+
 }
 
 
