@@ -10,6 +10,7 @@ public class Game
 	private RenderWindow window;
 	private char[] blank;
 	bool gameON = false;
+	bool newGame = false;
 	UserInputAllkeys pressKey;
 
 	public Game(RenderWindow wind)
@@ -28,6 +29,7 @@ public class Game
 		pressKey = new UserInputAllkeys(window);
 		pressKey.onLetterPressed += HandleLetterPress;
 		pressKey.onSPACEpressed += HandleSPACEpressed;
+		pressKey.onENTERpressed += HandleENTERPressed;
 		isMatch = new LetterCheck();
 		isMatch.onWrongLetterPressed += HandleWrongLetter;
 
@@ -65,6 +67,11 @@ public class Game
 	public void HandleSPACEpressed()
 	{
 		gameON = true;
+
+	}
+	public void HandleENTERPressed()
+	{
+		newGame = true;
 	}
 	//---------------------------------------------
 	// 				HAPPENS EVERY FRAME
@@ -80,15 +87,24 @@ public class Game
 
 	public void Play()
 	{
-		window.DispatchEvents();
+
 
 		if (gameON)
 		{
+
 			ui.ToDraw();
+
 		}
-		else
+		else if (!gameON)
 		{
+
 			menu.Drawable();
 		}
+		else if (newGame)
+		{
+
+			window.Dispose();
+		}
+
 	}
 }

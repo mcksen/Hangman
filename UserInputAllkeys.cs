@@ -5,8 +5,9 @@ public class UserInputAllkeys
 {
 	public delegate void LetterEvent(char letter);
 	public event LetterEvent onLetterPressed;
-	public delegate void AltEvent();
-	public event AltEvent onSPACEpressed;
+	public delegate void INSTARUCTIONSevent();
+	public event INSTARUCTIONSevent onSPACEpressed;
+	public event INSTARUCTIONSevent onENTERpressed;
 	RenderWindow winDOW;
 	public UserInputAllkeys(RenderWindow window)
 	{
@@ -32,6 +33,11 @@ public class UserInputAllkeys
 		else if (e.Code == Keyboard.Key.Space && onSPACEpressed != null)
 		{
 			onSPACEpressed();
+		}
+
+		else if (e.Code == Keyboard.Key.Enter && onENTERpressed != null)
+		{
+			onENTERpressed();
 		}
 	}
 }

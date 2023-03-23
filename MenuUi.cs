@@ -16,16 +16,19 @@ public class MenuUi
 	{
 		GameData.window.Clear(Color.White);
 		DrawBack();
-		DrawIntroScreen();
+		DrawGameName();
+		DrawStart();
 		if (GameData.wrongGuesses.Count == 10)
 		{
-
+			GameData.window.Clear(Color.White);
 			DrawGameOver();
+			DrawNewGame();
 		}
 		if (GameData.isWin)
 		{
 			GameData.window.Clear(Color.White);
 			DrawGameWon();
+			DrawNewGame();
 		}
 		GameData.window.Display();
 	}
@@ -38,15 +41,24 @@ public class MenuUi
 
 
 
-	public void DrawIntroScreen()
+	public void DrawGameName()
 	{
 
-		Text toStart = content.MakeLetters("Press SPACE to start new game", font, 45);
-		toStart.Position = new Vector2f(GameData.windowSize.X / 2f, GameData.windowSize.Y * 0.8f);
+
 		Text title = content.MakeLetters("~HANGMAN~", font, 160);
 		title.Position = new Vector2f(GameData.windowSize.X / 2f, GameData.windowSize.Y * 0.34f);
-		GameData.window.Draw(toStart);
 		GameData.window.Draw(title);
+	}
+
+	public void DrawStart()
+	{
+		Text toStart = MakeInstructions("Press SPACE to start a new game");
+		GameData.window.Draw(toStart);
+	}
+	public void DrawNewGame()
+	{
+		Text newGame = MakeInstructions("Press ENTER to play again");
+		GameData.window.Draw(newGame);
 	}
 	public void DrawBack()
 	{
@@ -95,5 +107,12 @@ public class MenuUi
 		anonsment.Origin = new Vector2f(width / 2f, height / 2f);
 		anonsment.Position = new Vector2f(GameData.windowSize.X / 2f, GameData.windowSize.Y * 0.4f);
 		return (anonsment);
+	}
+
+	private Text MakeInstructions(string message)
+	{
+		Text instruction = content.MakeLetters(message, font, 45);
+		instruction.Position = new Vector2f(GameData.windowSize.X / 2f, GameData.windowSize.Y * 0.8f);
+		return instruction;
 	}
 }
