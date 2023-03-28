@@ -4,56 +4,72 @@ public class Game
 {
 	private GameUI ui;
 	private MenuUi menu;
-
-	private string targetWord;
-	private LetterCheck isMatch;
+	private LetterCheck letterChecker;
 	private RenderWindow window;
-	private char[] blank;
-	bool gameON = false;
-	bool newGame = false;
-	UserInputAllkeys pressKey;
-
+	private UserInputAllkeys pressKey;
+	private WordChooser Ran = new WordChooser();
+	private List<string> dictionaryONE;
+	private Timer time;
 	public Game(RenderWindow wind)
 	{
 		// Adding a new array of strings, removing all words shoerter than 5 characters and converting to list of strings
 		ListCreator Dict = new ListCreator();
 		string[] allWords = File.ReadAllLines("C:\\Users\\kseni\\Documents\\HANGMAN.txt");
-		List<string> dictionaryONE = Dict.RemoveWords(allWords, 5);
+		dictionaryONE = Dict.RemoveWords(allWords, 5);
 		// Choosing a random word
-		WordChooser Ran = new WordChooser();
-		targetWord = Ran.chooseTargetWord(dictionaryONE);
-		Console.WriteLine(targetWord);
+		Reset();
 		window = wind;
+		time = new Timer(HandleTimerComplete, this, 0, 1000);
+
+
 		// Closing window
 		WindowCloser close = new WindowCloser(window);
 		pressKey = new UserInputAllkeys(window);
 		pressKey.onLetterPressed += HandleLetterPress;
 		pressKey.onSPACEpressed += HandleSPACEpressed;
 		pressKey.onENTERpressed += HandleENTERPressed;
-		isMatch = new LetterCheck();
-		isMatch.onWrongLetterPressed += HandleWrongLetter;
+		letterChecker = new LetterCheck();
+		letterChecker.onWrongLetterPressed += HandleWrongLetter;
 
 		GameData.window = wind;
 		menu = new MenuUi();
 		ui = new GameUI();
 		char blankWord = ' ';
 		List<char> pro = new List<char>();
-		for (int i = 0; i < targetWord.Length; i++)
+		for (int i = 0; i < GameData.targetWord.Length; i++)
 		{
 			pro.Add(blankWord);
 
 		}
-		blank = pro.ToArray();
-		Console.WriteLine(blank.Length);
-		GameData.ifMatch = new string(blank);
 
+
+		GameData.ifMatch = new string(pro.ToArray());
+
+
+	}
+
+	private void HandleTimerComplete(object? state)
+	{
+		GameData.timeLeft--;
+		if (GameData.timeLeft == 0)
+		{
+			GameOver();
+		}
+	}
+
+	~Game()
+	{
+		pressKey.onLetterPressed -= HandleLetterPress;
+		pressKey.onSPACEpressed -= HandleSPACEpressed;
+		pressKey.onENTERpressed -= HandleENTERPressed;
+		letterChecker.onWrongLetterPressed -= HandleWrongLetter;
 	}
 	private void CheckifWon()
 	{
-		if (GameData.ifMatch == targetWord)
+		if (GameData.ifMatch == GameData.targetWord)
 		{
 			GameData.isWin = true;
-			gameON = false;
+			GameOver();
 		}
 	}
 	private void HandleWrongLetter(char letter)
@@ -61,17 +77,22 @@ public class Game
 		GameData.wrongGuesses.Add(letter.ToString());
 		if (GameData.wrongGuesses.Count == 10)
 		{
-			gameON = false;
+			GameOver();
 		}
 	}
 	public void HandleSPACEpressed()
 	{
-		gameON = true;
+		GameData.gameON = true;
 
 	}
 	public void HandleENTERPressed()
 	{
-		newGame = true;
+		Reset();
+	}
+	public void GameOver()
+	{
+		Reset();
+		GameData.gameON = false;
 	}
 	//---------------------------------------------
 	// 				HAPPENS EVERY FRAME
@@ -79,17 +100,27 @@ public class Game
 	//Checking user's input
 	private void HandleLetterPress(char letter)
 	{
-		char[] match = isMatch.checkLetter(blank, targetWord, letter);
-		GameData.ifMatch = new string(match);
-		CheckifWon();
-
+		if (GameData.gameON)
+		{
+			GameData.ifMatch = letterChecker.checkLetter(GameData.ifMatch, GameData.targetWord, letter);
+			CheckifWon();
+		}
 	}
 
+	public void Reset()
+	{
+		GameData.targetWord = Ran.chooseTargetWord(dictionaryONE);
+		Console.WriteLine(GameData.targetWord);
+		GameData.ifMatch = "     ";
+		GameData.wrongGuesses.Clear();
+		GameData.isWin = false;
+		GameData.timeLeft = 10;
+	}
 	public void Play()
 	{
 
 		window.DispatchEvents();
-		if (gameON)
+		if (GameData.gameON)
 		{
 
 			ui.ToDraw();

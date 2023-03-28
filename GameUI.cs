@@ -49,6 +49,7 @@ public class GameUI
 		DrawWrongGuesseTitle();
 		DrawHangMan();
 		DrawWrongGuesses();
+		DrawTime();
 		GameData.window.Display();
 
 
@@ -110,7 +111,11 @@ public class GameUI
 			GameData.window.Draw(sprites[i]);
 		}
 	}
-
+	private void DrawTime()
+	{
+		Text time = new Text(GameData.timeLeft.ToString(), font);
+		GameData.window.Draw(time);
+	}
 
 	private void DrawWrongGuesses()
 	{

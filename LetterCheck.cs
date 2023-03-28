@@ -1,4 +1,5 @@
 
+using System.Text;
 using SFML.Graphics;
 
 public class LetterCheck
@@ -8,15 +9,18 @@ public class LetterCheck
 	public event WrongLetterEvent onWrongLetterPressed;
 
 	// UseWrongGuess wrong = new UseWrongGuess();
-	public char[] checkLetter(char[] blankWord, string chosenWord, char userGuess)
+	public string checkLetter(string blankWord, string chosenWord, char userGuess)
 	{
 		bool anyMatch = false;
+		StringBuilder stringbuilder = new StringBuilder(blankWord);
+
 		for (int i = 0; i < chosenWord.Length; i++)
 		{
 			bool match = (userGuess == chosenWord[i]);
 			if (match)
 			{
-				blankWord[i] = chosenWord[i];
+
+				stringbuilder[i] = chosenWord[i];
 				anyMatch = true;
 			}
 
@@ -29,7 +33,7 @@ public class LetterCheck
 
 
 
-		return blankWord;
+		return stringbuilder.ToString();
 
 
 	}
