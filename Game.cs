@@ -93,6 +93,7 @@ public class Game
 		time.Start();
 		GameData.gameON = true;
 
+
 	}
 	public void HandleENTERPressed()
 	{
@@ -101,6 +102,7 @@ public class Game
 	public void GameOver()
 	{
 		GameData.gameON = false;
+		time.Stop();
 
 	}
 	//---------------------------------------------
