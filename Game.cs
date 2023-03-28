@@ -1,5 +1,6 @@
 using SFML.Graphics;
 using SFML.Window;
+using Timer = System.Timers.Timer;
 public class Game
 {
 	private GameUI ui;
@@ -19,7 +20,9 @@ public class Game
 		// Choosing a random word
 		Reset();
 		window = wind;
-		time = new Timer(HandleTimerComplete, this, 0, 1000);
+		time = new Timer(1000);
+		time.Elapsed += HandleTimerElapsed;
+
 
 
 		// Closing window
@@ -48,14 +51,18 @@ public class Game
 
 	}
 
-	private void HandleTimerComplete(object? state)
+	private void HandleTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
 	{
 		GameData.timeLeft--;
 		if (GameData.timeLeft == 0)
 		{
+			GameData.isLose = true;
 			GameOver();
+
 		}
 	}
+
+
 
 	~Game()
 	{
@@ -77,11 +84,13 @@ public class Game
 		GameData.wrongGuesses.Add(letter.ToString());
 		if (GameData.wrongGuesses.Count == 10)
 		{
+			GameData.isLose = true;
 			GameOver();
 		}
 	}
 	public void HandleSPACEpressed()
 	{
+		time.Start();
 		GameData.gameON = true;
 
 	}
@@ -91,8 +100,8 @@ public class Game
 	}
 	public void GameOver()
 	{
-		Reset();
 		GameData.gameON = false;
+
 	}
 	//---------------------------------------------
 	// 				HAPPENS EVERY FRAME
@@ -115,6 +124,7 @@ public class Game
 		GameData.wrongGuesses.Clear();
 		GameData.isWin = false;
 		GameData.timeLeft = 10;
+		GameData.isLose = false;
 	}
 	public void Play()
 	{

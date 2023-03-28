@@ -8,6 +8,7 @@ public static class GameData
 	public static string ifMatch = "     ";
 	public static List<string> wrongGuesses = new List<string> { };
 	public static bool isWin = false;
+	public static bool isLose = false;
 	public static int highScore = 0;
 	public static int currentScore = 0;
 	public static bool gameON = false;

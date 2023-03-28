@@ -19,7 +19,7 @@ public class MenuUi
 		DrawGameName();
 		DrawStart();
 
-		if (GameData.wrongGuesses.Count == 10)
+		if (GameData.isLose)
 		{
 			GameData.window.Clear(Color.White);
 			DrawGameOver();
