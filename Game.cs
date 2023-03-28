@@ -88,22 +88,17 @@ public class Game
 	public void Play()
 	{
 
-
+		window.DispatchEvents();
 		if (gameON)
 		{
 
 			ui.ToDraw();
 
 		}
-		else if (!gameON)
+		else
 		{
 
 			menu.Drawable();
-		}
-		else if (newGame)
-		{
-
-			window.Dispose();
 		}
 
 	}

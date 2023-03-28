@@ -18,12 +18,14 @@ public class MenuUi
 		DrawBack();
 		DrawGameName();
 		DrawStart();
+
 		if (GameData.wrongGuesses.Count == 10)
 		{
 			GameData.window.Clear(Color.White);
 			DrawGameOver();
 			DrawNewGame();
 		}
+
 		if (GameData.isWin)
 		{
 			GameData.window.Clear(Color.White);
