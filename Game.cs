@@ -62,7 +62,18 @@ public class Game
 		}
 	}
 
+	private void ChangeCurrentScore()
+	{
+		if (GameData.isWin)
+		{
+			GameData.currentScore++;
+		}
+		else if (GameData.isLose)
+		{
+			GameData.currentScore = 0;
+		}
 
+	}
 
 	~Game()
 	{
@@ -103,6 +114,7 @@ public class Game
 	{
 		GameData.gameON = false;
 		time.Stop();
+		ChangeCurrentScore();
 
 	}
 	//---------------------------------------------
@@ -127,6 +139,7 @@ public class Game
 		GameData.isWin = false;
 		GameData.timeLeft = 10;
 		GameData.isLose = false;
+
 	}
 	public void Play()
 	{

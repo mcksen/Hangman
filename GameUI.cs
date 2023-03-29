@@ -45,6 +45,8 @@ public class GameUI
 	{
 		GameData.window.Clear(back);
 		DrawBox();
+		DrawScore();
+		DrawHIGHscore();
 		DrawCharArray();
 		DrawWrongGuesseTitle();
 		DrawHangMan();
@@ -113,7 +115,8 @@ public class GameUI
 	}
 	private void DrawTime()
 	{
-		Text time = new Text(GameData.timeLeft.ToString(), font);
+		Text time = content.MakeLetters("TIME LEFT: " + GameData.timeLeft.ToString(), font, 30);
+		time.Position = new Vector2f(GameData.windowSize.X * 0.11f, 0);
 		GameData.window.Draw(time);
 	}
 
@@ -157,6 +160,21 @@ public class GameUI
 		wrongTitle.Origin = new Vector2f(0, height / 2f);
 		wrongTitle.Position = new Vector2f(GameData.windowSize.X * 0.09f, GameData.windowSize.Y * 0.5f);
 		GameData.window.Draw(wrongTitle);
+	}
+
+	private void DrawScore()
+	{
+		Text score = content.MakeLetters("Your current score is: " + GameData.currentScore, font, 30);
+		score.Position = new Vector2f(GameData.windowSize.X * 0.5f, GameData.windowSize.Y * 0.1f);
+		GameData.window.Draw(score);
+	}
+
+	private void DrawHIGHscore()
+	{
+		Text score = content.MakeLetters("HIGHSCORE: " + GameData.highScore, font, 30);
+		score.Position = new Vector2f(GameData.windowSize.X * 0.47f, GameData.windowSize.Y * 0.2f);
+		GameData.window.Draw(score);
+
 	}
 }
 

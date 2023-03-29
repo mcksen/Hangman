@@ -3,6 +3,10 @@ public static class ScoreManager
 
 	private static string path = "C:/tmp/hangmanScore.txt";
 
+	static ScoreManager()
+	{
+		Load();
+	}
 	public static void TrySetHighScore()
 	{
 		if (GameData.currentScore > GameData.highScore)
