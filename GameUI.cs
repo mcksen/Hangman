@@ -91,16 +91,16 @@ public class GameUI
 	}
 	public List<Sprite> MakeSpriteList()
 	{
-		Sprite failONE = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailONE.png"));
-		Sprite failTWO = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailTWO.png"));
-		Sprite failTHREE = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailTHREE.png"));
-		Sprite failFOUR = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailFOUR.png"));
-		Sprite failFIVE = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailFIVE.png"));
-		Sprite failSIX = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailSIX.png"));
-		Sprite failSEVEN = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailSEVEN.png"));
-		Sprite failEIGHT = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailEIGHT.png"));
-		Sprite failNINE = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailNINE.png"));
-		Sprite failTEN = content.MakeHangman(new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\FailTEN.png"));
+		Sprite failONE = content.MakeHangman(new Texture(@"Sprites\FailONE.png"));
+		Sprite failTWO = content.MakeHangman(new Texture(@"Sprites\FailTWO.png"));
+		Sprite failTHREE = content.MakeHangman(new Texture(@"Sprites\FailTHREE.png"));
+		Sprite failFOUR = content.MakeHangman(new Texture(@"Sprites\FailFOUR.png"));
+		Sprite failFIVE = content.MakeHangman(new Texture(@"Sprites\FailFIVE.png"));
+		Sprite failSIX = content.MakeHangman(new Texture(@"Sprites\FailSIX.png"));
+		Sprite failSEVEN = content.MakeHangman(new Texture(@"Sprites\FailSEVEN.png"));
+		Sprite failEIGHT = content.MakeHangman(new Texture(@"Sprites\\FailEIGHT.png"));
+		Sprite failNINE = content.MakeHangman(new Texture(@"Sprites\FailNINE.png"));
+		Sprite failTEN = content.MakeHangman(new Texture(@"Sprites\FailTEN.png"));
 		List<Sprite> sprites = new List<Sprite> { failONE, failTWO, failTHREE, failFOUR, failFIVE, failSIX, failSEVEN, failEIGHT, failNINE, failTEN };
 		return sprites;
 	}

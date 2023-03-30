@@ -15,7 +15,7 @@ public class Game
 	{
 		// Adding a new array of strings, removing all words shoerter than 5 characters and converting to list of strings
 		ListCreator Dict = new ListCreator();
-		string[] allWords = File.ReadAllLines("C:\\Users\\kseni\\Documents\\HANGMAN.txt");
+		string[] allWords = File.ReadAllLines("HANGMAN.txt");
 		dictionaryONE = Dict.RemoveWords(allWords, 5);
 		// Choosing a random word
 		Reset();
@@ -56,7 +56,7 @@ public class Game
 		GameData.timeLeft--;
 		if (GameData.timeLeft == 0)
 		{
-			GameData.isLose = true;
+			GameData.gameSTATE = GameData.Mode.Lose;
 			GameOver();
 
 		}
@@ -64,11 +64,11 @@ public class Game
 
 	private void ChangeCurrentScore()
 	{
-		if (GameData.isWin)
+		if (GameData.gameSTATE == GameData.Mode.Win)
 		{
 			GameData.currentScore++;
 		}
-		else if (GameData.isLose)
+		else if (GameData.gameSTATE == GameData.Mode.Lose)
 		{
 			GameData.currentScore = 0;
 		}
@@ -86,7 +86,7 @@ public class Game
 	{
 		if (GameData.ifMatch == GameData.targetWord)
 		{
-			GameData.isWin = true;
+			GameData.gameSTATE = GameData.Mode.Win;
 			GameOver();
 		}
 	}
@@ -95,14 +95,14 @@ public class Game
 		GameData.wrongGuesses.Add(letter.ToString());
 		if (GameData.wrongGuesses.Count == 10)
 		{
-			GameData.isLose = true;
+			GameData.gameSTATE = GameData.Mode.Lose;
 			GameOver();
 		}
 	}
 	public void HandleSPACEpressed()
 	{
 		time.Start();
-		GameData.gameON = true;
+		GameData.gameSTATE = GameData.Mode.Play;
 
 
 	}
@@ -112,7 +112,7 @@ public class Game
 	}
 	public void GameOver()
 	{
-		GameData.gameON = false;
+
 		time.Stop();
 		ChangeCurrentScore();
 
@@ -123,7 +123,7 @@ public class Game
 	//Checking user's input
 	private void HandleLetterPress(char letter)
 	{
-		if (GameData.gameON)
+		if (GameData.gameSTATE == GameData.Mode.Play)
 		{
 			GameData.ifMatch = letterChecker.checkLetter(GameData.ifMatch, GameData.targetWord, letter);
 			CheckifWon();
@@ -136,16 +136,16 @@ public class Game
 		Console.WriteLine(GameData.targetWord);
 		GameData.ifMatch = "     ";
 		GameData.wrongGuesses.Clear();
-		GameData.isWin = false;
+		GameData.gameSTATE = GameData.Mode.Menu;
 		GameData.timeLeft = 10;
-		GameData.isLose = false;
+
 
 	}
 	public void Play()
 	{
 
 		window.DispatchEvents();
-		if (GameData.gameON)
+		if (GameData.gameSTATE == GameData.Mode.Play)
 		{
 
 			ui.ToDraw();

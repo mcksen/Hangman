@@ -19,14 +19,14 @@ public class MenuUi
 		DrawGameName();
 		DrawStart();
 
-		if (GameData.isLose)
+		if (GameData.gameSTATE == GameData.Mode.Lose)
 		{
 			GameData.window.Clear(Color.White);
 			DrawGameOver();
 			DrawNewGame();
 		}
 
-		if (GameData.isWin)
+		if (GameData.gameSTATE == GameData.Mode.Win)
 		{
 			GameData.window.Clear(Color.White);
 			DrawGameWon();
