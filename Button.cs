@@ -3,10 +3,10 @@ using SFML.System;
 public class Button
 {
 
-	Font font = new Font("C:/Windows/Fonts/arial.ttf");
-	Shape shape;
-	Text title;
-	Sprite image;
+	private Font font = new Font(@"Fonts/ARIALI 1.TTF");
+	private Shape shape;
+	private Text title;
+	private Sprite image;
 	public Button(Vector2f buttonSize, Vector2f position, Color color, string text = "")
 	{
 		shape = new RectangleShape(buttonSize);

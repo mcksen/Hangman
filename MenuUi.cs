@@ -8,8 +8,8 @@ public class MenuUi
 	Texture back;
 	public MenuUi()
 	{
-		font = new Font("C:/Windows/Fonts/arial.ttf");
-		back = new Texture("C:\\Users\\kseni\\Professional coding\\WORDLE\\Sprites\\b.jpg");
+		font = new Font(@"Fonts\ARIALI 1.TTF");
+		back = new Texture(@"bin\Sprites\b.jpg");
 	}
 
 	public void Drawable()

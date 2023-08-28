@@ -1,10 +1,11 @@
 using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
+
 public class ContentGenerator
 {
 
-	Shape hangmanBOX;
+
+	private Shape hangmanBOX;
 	public Shape MakeSquare()
 	{
 		float boxSize = 210f;

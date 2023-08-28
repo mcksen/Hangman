@@ -3,7 +3,7 @@ using SFML.Window;
 
 public class WindowCloser
 {
-	RenderWindow winDOW;
+	private RenderWindow winDOW;
 	public WindowCloser(RenderWindow window)
 	{
 		winDOW = window;

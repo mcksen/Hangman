@@ -1,6 +1,5 @@
 using SFML.Graphics;
 using SFML.System;
-
 public class GameUI
 {
 
@@ -16,10 +15,10 @@ public class GameUI
 	private Vector2f size;
 	private Shape[] squares;
 
-	Shape hangmanBOX;
-	Text wrongTitle;
-	List<Sprite> sprites;
-	Color back;
+	private Shape hangmanBOX;
+	private Text wrongTitle;
+	private List<Sprite> sprites;
+	private Color back;
 
 	public GameUI()
 	{
@@ -28,7 +27,7 @@ public class GameUI
 		padSize = 100f;
 		startingPoint = new Vector2f(0, 0.80f);
 		paddedPos = padding.GetPadding(GameData.windowSize, startingPoint, padSize);
-		font = new Font("C:/Windows/Fonts/arial.ttf");
+		font = new Font(@"Fonts\ARIALI 1.TTF");
 		content = new ContentGenerator();
 
 		hangmanBOX = content.MakeHangmanBox(GameData.window);
@@ -91,16 +90,16 @@ public class GameUI
 	}
 	public List<Sprite> MakeSpriteList()
 	{
-		Sprite failONE = content.MakeHangman(new Texture(@"Sprites\FailONE.png"));
-		Sprite failTWO = content.MakeHangman(new Texture(@"Sprites\FailTWO.png"));
-		Sprite failTHREE = content.MakeHangman(new Texture(@"Sprites\FailTHREE.png"));
-		Sprite failFOUR = content.MakeHangman(new Texture(@"Sprites\FailFOUR.png"));
-		Sprite failFIVE = content.MakeHangman(new Texture(@"Sprites\FailFIVE.png"));
-		Sprite failSIX = content.MakeHangman(new Texture(@"Sprites\FailSIX.png"));
-		Sprite failSEVEN = content.MakeHangman(new Texture(@"Sprites\FailSEVEN.png"));
-		Sprite failEIGHT = content.MakeHangman(new Texture(@"Sprites\\FailEIGHT.png"));
-		Sprite failNINE = content.MakeHangman(new Texture(@"Sprites\FailNINE.png"));
-		Sprite failTEN = content.MakeHangman(new Texture(@"Sprites\FailTEN.png"));
+		Sprite failONE = content.MakeHangman(new Texture(@"bin\Sprites\FailONE.png"));
+		Sprite failTWO = content.MakeHangman(new Texture(@"bin\Sprites\FailTWO.png"));
+		Sprite failTHREE = content.MakeHangman(new Texture(@"bin\Sprites\FailTHREE.png"));
+		Sprite failFOUR = content.MakeHangman(new Texture(@"bin\Sprites\FailFOUR.png"));
+		Sprite failFIVE = content.MakeHangman(new Texture(@"bin\Sprites\FailFIVE.png"));
+		Sprite failSIX = content.MakeHangman(new Texture(@"bin\Sprites\FailSIX.png"));
+		Sprite failSEVEN = content.MakeHangman(new Texture(@"bin\Sprites\FailSEVEN.png"));
+		Sprite failEIGHT = content.MakeHangman(new Texture(@"bin\Sprites\\FailEIGHT.png"));
+		Sprite failNINE = content.MakeHangman(new Texture(@"bin\Sprites\FailNINE.png"));
+		Sprite failTEN = content.MakeHangman(new Texture(@"bin\Sprites\FailTEN.png"));
 		List<Sprite> sprites = new List<Sprite> { failONE, failTWO, failTHREE, failFOUR, failFIVE, failSIX, failSEVEN, failEIGHT, failNINE, failTEN };
 		return sprites;
 	}
@@ -125,11 +124,11 @@ public class GameUI
 
 		Text[] noMatch = CreateListToDraw(GameData.wrongGuesses);
 
-		// Vector2f startPos = new Vector2f(windowSize.X * 0.1f, windowSize.Y * 0.4f);
+
 		float space = -20f;
 		for (int i = 0; i < noMatch.Length; i++)
 		{
-			// wrongTitle.GetGlobalBounds().Height is 29f
+
 			space += 40f;
 			noMatch[i].Position = new Vector2f(wrongTitle.GetGlobalBounds().Width * 1.4f, wrongTitle.Position.Y - 23) + new Vector2f(space, 0);
 			GameData.window.Draw(noMatch[i]);

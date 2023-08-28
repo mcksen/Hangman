@@ -1,6 +1,6 @@
 
 using System.Text;
-using SFML.Graphics;
+
 
 public class LetterCheck
 {

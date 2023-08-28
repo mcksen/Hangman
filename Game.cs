@@ -1,5 +1,5 @@
 using SFML.Graphics;
-using SFML.Window;
+
 using Timer = System.Timers.Timer;
 public class Game
 {
@@ -13,11 +13,11 @@ public class Game
 	private Timer time;
 	public Game(RenderWindow wind)
 	{
-		// Adding a new array of strings, removing all words shoerter than 5 characters and converting to list of strings
-		ListCreator Dict = new ListCreator();
-		string[] allWords = File.ReadAllLines("HANGMAN.txt");
+
+		ListTrimmer Dict = new ListTrimmer();
+		string[] allWords = File.ReadAllLines(@"bin\HANGMAN.txt");
 		dictionaryONE = Dict.RemoveWords(allWords, 5);
-		// Choosing a random word
+
 		Reset();
 		window = wind;
 		time = new Timer(1000);
@@ -25,7 +25,7 @@ public class Game
 
 
 
-		// Closing window
+
 		WindowCloser close = new WindowCloser(window);
 		pressKey = new UserInputAllkeys(window);
 		pressKey.onLetterPressed += HandleLetterPress;
@@ -120,7 +120,7 @@ public class Game
 	//---------------------------------------------
 	// 				HAPPENS EVERY FRAME
 	//---------------------------------------------
-	//Checking user's input
+
 	private void HandleLetterPress(char letter)
 	{
 		if (GameData.gameSTATE == GameData.Mode.Play)
